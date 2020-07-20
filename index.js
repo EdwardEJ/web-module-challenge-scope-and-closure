@@ -76,28 +76,27 @@ finalScore(inning, 9) might return:
 
 */
 
-function finalScore(inning, inningNum) {
-  let homeScore = 0;
-  let awayScore = 0;
-
-  for (let i = 0; i < inningNum; i++) {
-    homeScore += inning();
-    awayScore += inning();
-    // console.log(`Inning ${i + 1}, Home score is ${homeScore} and Away score is ${awayScore}`);
-  }
-
-  return {
-    'home': homeScore,
-    'away': awayScore
+function finalScore(inning, finalInning) {
+  const scores = {
+    homeScore: 0,
+    awayScore: 0
   };
+
+  for (let i = 0; i < finalInning; i++) {
+    scores.homeScore += inning();
+    scores.awayScore += inning();
+  }
+  // console.log(`Inning ${i + 1}, Home score is ${homeScore} and Away score is ${awayScore}`);
+  return scores;
 }
 
-console.log(finalScore(inning, 8));
+// console.log(finalScore(inning, 9));
+
 
 /* Task 4: 
-
+ 
 Create a function called `scoreboard` that accepts the following parameters: 
-
+ 
 (1) Callback function `getInningScore`
 (2) Callback function `inning`
 (3) A number of innings
@@ -114,12 +113,22 @@ and returns the score at each pont in the game, like so:
 9th inning: awayTeam - homeTeam
 Final Score: awayTeam - homeTeam */
 
+function getInningScore(inning) {
+  return {
+    homeScore: inning(),
+    awayScore: inning()
+  };
 
-function scoreboard(finalScore, inning, inningNum) {
-  let homeScore = 0;
-  let awayScore = 0;
+  // for (let i = 0; i < inningNum; i++) {
+  // scores.homeScore += inning();
+  // scores.awayScore += inning();
+  // }
+  // return scores;
+}
 
+// console.log(getInningScore(inning, 6));
 
+function scoreboard(getInningScore, inning, inningNum) {
   const allInnings = [
     '1st',
     '2nd',
@@ -132,15 +141,18 @@ function scoreboard(finalScore, inning, inningNum) {
     '9th'
   ];
 
-  for (let i = 0; i < inningNum; i++) {
-    homeScore += inning();
-    awayScore += inning();
+  let homeScore = 0;
+  let awayScore = 0;
 
+  for (let i = 0; i < inningNum; i++) {
+    let currentScore = getInningScore(inning);
+    homeScore += currentScore.homeScore;
+    awayScore += currentScore.awayScore;
     console.log(`${allInnings[i]} inning: ${awayScore} - ${homeScore}`);
-  }
-  if (inningNum === 9) {
-    console.log(finalScore);
+    if (i === inningNum - 1) {
+      console.log(`Final Score: ${awayScore} - ${homeScore}`);
+    }
   }
 }
 
-// scoreboard(finalScore, inning, 9);
+scoreboard(getInningScore, inning, 7);

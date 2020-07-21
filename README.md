@@ -42,6 +42,8 @@ Find the file `index.js` and complete the tasks.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+  A function within a function.
+
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -63,8 +65,13 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+  The closure is the anonymous function inside `function personalDice(name)`. You can tell because it's the function with the function
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
-c. What is the lexical scope of `newRoll`? 
+  The console.log of their name is always the same with a changing, random number generated between 1 and 6. 
+
+c. What is the lexical scope of `newRoll`?
+  The lexical scope of newroll are Math.floor() and Math.random()
 
 ### Task 2c - Exit Ticket
 
@@ -92,6 +99,14 @@ console.log("b defined? " + (typeof b !== 'undefined'));
 
 ```js
 var addSix = createBase(6);
+
+function createBase(num) {
+  let count = num;
+  function addSix() {
+    return count += 6;
+  }
+}
+
 addSix(10); // returns 16
 addSix(21); // returns 27
 ```
